@@ -9,6 +9,7 @@ const commitPrompt = setupCommitPrompt({
     { label: 'ci       — Continuous Integration', value: 'ci' },
     { label: 'deps     — Dependency updates', value: 'deps' },
     { label: 'core     — Core business logic', value: 'core' }
-  ]
+  ],
+  noVerify: false
 });
 commitPrompt.run();
