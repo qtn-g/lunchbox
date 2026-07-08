@@ -1,0 +1,25 @@
+# editorconfig.org
+
+# top-most EditorConfig file
+root = true
+
+# Default settings:
+# A newline ending every file
+# Use 2 spaces as indentation
+[*]
+insert_final_newline = true
+indent_style = space
+indent_size = 2
+trim_trailing_whitespace = true
+tab_width = 4
+end_of_line = lf
+
+# Shell scripts
+[*.sh]
+end_of_line = lf
+[pre-commit]
+end_of_line = lf
+[commit-msg]
+end_of_line = lf
+[*.{cmd,bat}]
+end_of_line = crlf

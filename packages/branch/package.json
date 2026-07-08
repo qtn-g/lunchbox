@@ -1,0 +1,43 @@
+{
+  "name": "@lunchbox/branch",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "ISC",
+  "author": "",
+  "description": "branch name generator",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "biome check",
+    "test": "vitest run --coverage",
+    "test:verbose": "vitest run --reporter verbose"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": "./dist/index.mjs",
+        "types": "./dist/index.d.mts"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "devDependencies": {
+    "@lunchbox/utils": "workspace:*",
+    "@types/node": "24.8.0",
+    "@vitest/coverage-v8": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.7.0"
+  }
+}

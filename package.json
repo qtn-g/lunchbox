@@ -1,0 +1,28 @@
+{
+  "name": "lunchbox",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "ISC",
+  "author": "",
+  "description": "Toolbox for commiting, branching, and releasing packages",
+  "scripts": {
+    "build": "concurrently -n utils,branch,commit \"pnpm --filter @lunchbox/utils run build\" \"pnpm --filter @lunchbox/branch run build\" \"pnpm --filter @lunchbox/commit run build\"",
+    "dev": "concurrently -n utils,branch,commit \"pnpm --filter @lunchbox/utils run dev\" \"pnpm --filter @lunchbox/branch run dev\" \"pnpm --filter @lunchbox/commit run dev\"",
+    "lint": "concurrently -n utils,branch,commit \"pnpm --filter @lunchbox/utils run lint\" \"pnpm --filter @lunchbox/branch run lint\" \"pnpm --filter @lunchbox/commit run lint\"",
+    "test": "concurrently -n utils,branch,commit \"pnpm --filter @lunchbox/utils run test\" \"pnpm --filter @lunchbox/branch run test\" \"pnpm --filter @lunchbox/commit run test\"",
+    "test:verbose": "concurrently -n utils,branch,commit \"pnpm --filter @lunchbox/utils run test:verbose\" \"pnpm --filter @lunchbox/branch run test:verbose\" \"pnpm --filter @lunchbox/commit run test:verbose\"",
+    "commit": "node ./scripts/commit.mjs",
+    "prepare": "husky"
+  },
+  "devDependencies": {
+    "@biomejs/biome": "2.5.2",
+    "concurrently": "^10.0.3",
+    "husky": "^9.1.7",
+    "typescript": "catalog:"
+  },
+  "engineStrict": true,
+  "engines": {
+    "node": "24.8.0"
+  },
+  "packageManager": "pnpm@10.32.1"
+}

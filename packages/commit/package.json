@@ -1,0 +1,44 @@
+{
+  "name": "@lunchbox/commit",
+  "version": "0.0.0",
+  "type": "module",
+  "license": "ISC",
+  "author": "",
+  "description": "commit message generator",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "biome check",
+    "test": "vitest run --coverage",
+    "test:verbose": "vitest run --reporter verbose"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": "./src/index.ts",
+    "./package.json": "./package.json"
+  },
+  "publishConfig": {
+    "access": "public",
+    "exports": {
+      ".": {
+        "import": "./dist/index.mjs",
+        "types": "./dist/index.d.mts"
+      },
+      "./package.json": "./package.json"
+    }
+  },
+  "devDependencies": {
+    "@types/node": "24.8.0",
+    "@vitest/coverage-v8": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
+    "@lunchbox/utils": "workspace:*"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.7.0"
+
+  }
+}
