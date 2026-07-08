@@ -39,3 +39,8 @@ Each package is built and tested through the root workspace scripts.
 - `pnpm run lint` — lint all packages.
 - `pnpm run test` — run tests for all packages.
 - `pnpm run commit` — run the root repository commit script.
+
+## TODO
+- Publish the packages to npm and wire up automated releases.
+- Add a semver-aware package versioning workflow for updating package manifests.
+- Improve workspace documentation with richer examples and contribution guidance.
