@@ -27,7 +27,7 @@ jobs:
         run: pnpm run build
 
       - name: Upload build artifacts
-        uses: actions/upload-artifact@v5
+        uses: actions/upload-artifact@v6
         with:
           name: dist
           path: packages/*/dist
@@ -45,7 +45,7 @@ jobs:
         uses: ./.github/actions/setup
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: dist
           path: packages
@@ -70,7 +70,7 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Download build artifacts
-        uses: actions/download-artifact@v5
+        uses: actions/download-artifact@v6
         with:
           name: dist
           path: packages
