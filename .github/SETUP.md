@@ -15,7 +15,7 @@ This allows the `docs.yml` workflow to deploy the VitePress site.
 1. Go to **Settings → Secrets and variables → Actions**
 2. Click **New repository secret**
 3. Name: `NPM_TOKEN`
-4. Value: a valid npm access token with `publish` permission for the `@lunchbox` scope
+4. Value: a valid npm access token with `publish` permission for the `@lunchbox-tools` scope
 5. Click **Add secret**
 
 This is used by the `release.yml` workflow to publish packages.

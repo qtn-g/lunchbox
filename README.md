@@ -8,9 +8,9 @@ A pnpm monorepo containing CLI utilities for branch creation and Conventional Co
 
 | Package | Description |
 | --- | --- |
-| [`@lunchbox/branch`](packages/branch/README.md) | Interactive branch name generator |
-| [`@lunchbox/commit`](packages/commit/README.md) | Interactive Conventional Commit message generator |
-| [`@lunchbox/utils`](packages/utils/README.md) | Shared internal utilities (private, not published) |
+| [`@lunchbox-tools/branch`](packages/branch/README.md) | Interactive branch name generator |
+| [`@lunchbox-tools/commit`](packages/commit/README.md) | Interactive Conventional Commit message generator |
+| [`@lunchbox-tools/utils`](packages/utils/README.md) | Shared internal utilities (private, not published) |
 
 ## Development setup
 
@@ -34,7 +34,7 @@ pnpm run build
 ## Adding a new package
 
 1. Create `packages/<name>/` following the structure of an existing package.
-2. Set `"name": "@lunchbox/<name>"` in `package.json`.
+2. Set `"name": "@lunchbox-tools/<name>"` in `package.json`.
 3. Mirror the `exports` / `publishConfig` pattern from an existing package.
 4. Use `catalog:` for `typescript` and `tsdown` in `devDependencies`.
 5. Do not add ESLint or Prettier — Biome handles everything.

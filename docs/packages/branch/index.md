@@ -1,4 +1,4 @@
-# @lunchbox/branch
+# @lunchbox-tools/branch
 
 Interactive CLI prompt that generates **well-formatted branch names** from a type and description.
 
@@ -7,15 +7,15 @@ Interactive CLI prompt that generates **well-formatted branch names** from a typ
 ::: code-group
 
 ```bash [npm]
-npm install -D @lunchbox/branch
+npm install -D @lunchbox-tools/branch
 ```
 
 ```bash [yarn]
-yarn add -D @lunchbox/branch
+yarn add -D @lunchbox-tools/branch
 ```
 
 ```bash [pnpm]
-pnpm add -D @lunchbox/branch
+pnpm add -D @lunchbox-tools/branch
 ```
 
 :::
@@ -26,7 +26,7 @@ Create a script (e.g. `scripts/branch.mjs`) and call the setup function:
 
 ```js
 #!/usr/bin/env node
-import { setupBranchPrompt } from '@lunchbox/branch';
+import { setupBranchPrompt } from '@lunchbox-tools/branch';
 
 setupBranchPrompt().run();
 ```

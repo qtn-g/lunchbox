@@ -1,7 +1,7 @@
 import { execSync } from 'node:child_process';
 import { join } from 'node:path';
 import { text } from '@clack/prompts';
-import { unwrap } from '@lunchbox/utils';
+import { unwrap } from '@lunchbox-tools/utils';
 import { validateSubjectLength } from './format';
 
 export const limitedInput = async (message: string, { maxLength }: { maxLength: number }): Promise<string> => {

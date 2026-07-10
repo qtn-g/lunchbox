@@ -1,4 +1,4 @@
-# @lunchbox/branch
+# @lunchbox-tools/branch
 
 Interactive CLI for generating standardised git branch names.
 
@@ -22,9 +22,9 @@ src/
 
 ```sh
 # from the repo root
-pnpm --filter @lunchbox/branch run build
-pnpm --filter @lunchbox/branch run test
-pnpm --filter @lunchbox/branch run lint
+pnpm --filter @lunchbox-tools/branch run build
+pnpm --filter @lunchbox-tools/branch run test
+pnpm --filter @lunchbox-tools/branch run lint
 ```
 
 ## Public API

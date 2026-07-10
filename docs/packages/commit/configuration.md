@@ -51,7 +51,7 @@ Maximum allowed characters for the commit subject line.
 ## Example
 
 ```ts
-import { setupCommitPrompt } from '@lunchbox/commit';
+import { setupCommitPrompt } from '@lunchbox-tools/commit';
 
 setupCommitPrompt({
   commitTypes: [
@@ -73,7 +73,7 @@ setupCommitPrompt({
 The `CommitConfig` type is exported for type safety:
 
 ```ts
-import type { CommitConfig } from '@lunchbox/commit';
+import type { CommitConfig } from '@lunchbox-tools/commit';
 
 const config: Partial<CommitConfig> = {
   maximumSubjectLength: 60,

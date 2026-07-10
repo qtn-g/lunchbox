@@ -54,7 +54,7 @@ importers:
         specifier: 1.7.0
         version: 1.7.0
     devDependencies:
-      '@lunchbox/utils':
+      '@lunchbox-tools/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/node':
@@ -79,7 +79,7 @@ importers:
         specifier: 1.7.0
         version: 1.7.0
     devDependencies:
-      '@lunchbox/utils':
+      '@lunchbox-tools/utils':
         specifier: workspace:*
         version: link:../utils
       '@types/node':

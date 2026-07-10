@@ -2,7 +2,7 @@
 
 ## What This Repo Is
 
-**lunchbox** is a pnpm monorepo of CLI/utility tools for committing, branching, and releasing packages. Each tool lives under `packages/<name>` and is published independently as `@lunchbox/<name>`.
+**lunchbox** is a pnpm monorepo of CLI/utility tools for committing, branching, and releasing packages. Each tool lives under `packages/<name>` and is published independently as `@lunchbox-tools/<name>`.
 
 ## Monorepo Structure
 
@@ -19,7 +19,7 @@ packages/
 
 - All packages are listed in `pnpm-workspace.yaml` under `packages/*`.
 - Shared dependency versions are pinned in the `catalog:` block of `pnpm-workspace.yaml`; always use `catalog:` for shared deps instead of hardcoding versions.
-- Run workspace-wide scripts with `pnpm --filter @lunchbox/<name> run <script>`.
+- Run workspace-wide scripts with `pnpm --filter @lunchbox-tools/<name> run <script>`.
 
 ## Toolchain
 
@@ -69,7 +69,7 @@ Never change this pattern — it allows consumers and the dev server to resolve 
 ## Adding a New Package
 
 1. Create `packages/<name>/` with the structure above.
-2. Set `"name": "@lunchbox/<name>"` in `package.json`.
+2. Set `"name": "@lunchbox-tools/<name>"` in `package.json`.
 3. Mirror the `exports` / `publishConfig` pattern from an existing package.
 4. Use `catalog:` for `typescript` and `tsdown` in `devDependencies`.
 5. Do not add a separate ESLint or Prettier config — Biome handles everything.

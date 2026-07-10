@@ -14,10 +14,10 @@ hero:
       link: https://github.com/your-org/lunchbox
 
 features:
-  - title: "@lunchbox/commit"
+  - title: "@lunchbox-tools/commit"
     details: Interactive prompt that generates conventional commit messages with type, scope, subject, body, and breaking change support.
     link: /packages/commit/
-  - title: "@lunchbox/branch"
+  - title: "@lunchbox-tools/branch"
     details: Interactive prompt that creates well-formatted branch names from a type and description.
     link: /packages/branch/
 ---

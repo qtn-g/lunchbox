@@ -1,4 +1,4 @@
-# @lunchbox/commit
+# @lunchbox-tools/commit
 
 Interactive CLI prompt that generates **conventional commit messages** with type, scope, subject, body, and breaking change support.
 
@@ -7,15 +7,15 @@ Interactive CLI prompt that generates **conventional commit messages** with type
 ::: code-group
 
 ```bash [npm]
-npm install -D @lunchbox/commit
+npm install -D @lunchbox-tools/commit
 ```
 
 ```bash [yarn]
-yarn add -D @lunchbox/commit
+yarn add -D @lunchbox-tools/commit
 ```
 
 ```bash [pnpm]
-pnpm add -D @lunchbox/commit
+pnpm add -D @lunchbox-tools/commit
 ```
 
 :::
@@ -26,7 +26,7 @@ Create a script (e.g. `scripts/commit.mjs`) and call the setup function:
 
 ```js
 #!/usr/bin/env node
-import { setupCommitPrompt } from '@lunchbox/commit';
+import { setupCommitPrompt } from '@lunchbox-tools/commit';
 
 setupCommitPrompt().run();
 ```
@@ -87,7 +87,7 @@ BREAKING CHANGE: description
 
 ## Husky Integration
 
-You can use `@lunchbox/commit` as a replacement for `git commit` by combining it with [husky](https://typicode.github.io/husky/) to enforce structured commits across your team.
+You can use `@lunchbox-tools/commit` as a replacement for `git commit` by combining it with [husky](https://typicode.github.io/husky/) to enforce structured commits across your team.
 
 ### 1. Install husky
 
@@ -121,7 +121,7 @@ Create a script file (e.g. `scripts/commit.mjs`):
 
 ```js
 #!/usr/bin/env node
-import { setupCommitPrompt } from '@lunchbox/commit';
+import { setupCommitPrompt } from '@lunchbox-tools/commit';
 
 setupCommitPrompt().run();
 ```
@@ -147,5 +147,5 @@ pnpm commit
 This launches the interactive prompt, generates the message, and commits for you.
 
 ::: tip
-If you have a `commit-msg` hook that validates the message format, `@lunchbox/commit` already produces compliant messages — no extra validation needed. You can also pass `noVerify: true` in the config to skip hooks during the commit if needed.
+If you have a `commit-msg` hook that validates the message format, `@lunchbox-tools/commit` already produces compliant messages — no extra validation needed. You can also pass `noVerify: true` in the config to skip hooks during the commit if needed.
 :::

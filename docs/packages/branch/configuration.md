@@ -24,7 +24,7 @@ interface BranchType {
 ## Example
 
 ```ts
-import { setupBranchPrompt } from '@lunchbox/branch';
+import { setupBranchPrompt } from '@lunchbox-tools/branch';
 
 setupBranchPrompt({
   branchTypes: [
@@ -42,7 +42,7 @@ setupBranchPrompt({
 The `BranchConfig` type is exported for type safety:
 
 ```ts
-import type { BranchConfig } from '@lunchbox/branch';
+import type { BranchConfig } from '@lunchbox-tools/branch';
 
 const config: Partial<BranchConfig> = {
   branchTypes: [

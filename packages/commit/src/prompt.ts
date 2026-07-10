@@ -2,7 +2,7 @@
 
 import fs from 'node:fs';
 import { box, confirm, intro, multiselect, outro, select } from '@clack/prompts';
-import { runCommand, unwrap } from '@lunchbox/utils';
+import { runCommand, unwrap } from '@lunchbox-tools/utils';
 import { defaultConfig } from './constants';
 import { formatCommitMessage } from './format';
 import { getCommitMessageFile, limitedInput, optionalInput } from './utils';

@@ -1,5 +1,5 @@
 {
-  "name": "@lunchbox/commit",
+  "name": "@lunchbox-tools/commit",
   "version": "1.0.0",
   "type": "module",
   "license": "ISC",
@@ -35,7 +35,7 @@
     "tsdown": "catalog:",
     "typescript": "catalog:",
     "vitest": "catalog:",
-    "@lunchbox/utils": "workspace:*"
+    "@lunchbox-tools/utils": "workspace:*"
   },
   "dependencies": {
     "@clack/prompts": "1.7.0"

@@ -1,4 +1,4 @@
-# @lunchbox/commit
+# @lunchbox-tools/commit
 
 Interactive CLI for generating [Conventional Commits](https://www.conventionalcommits.org/) messages.
 
@@ -23,9 +23,9 @@ src/
 
 ```sh
 # from the repo root
-pnpm --filter @lunchbox/commit run build
-pnpm --filter @lunchbox/commit run test
-pnpm --filter @lunchbox/commit run lint
+pnpm --filter @lunchbox-tools/commit run build
+pnpm --filter @lunchbox-tools/commit run test
+pnpm --filter @lunchbox-tools/commit run lint
 ```
 
 ## Public API

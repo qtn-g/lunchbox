@@ -30,7 +30,7 @@ jobs:
         uses: actions/configure-pages@v6
 
       - name: Build docs
-        run: pnpm --filter @lunchbox/docs run build
+        run: pnpm --filter @lunchbox-tools/docs run build
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v5

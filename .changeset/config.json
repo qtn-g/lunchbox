@@ -2,7 +2,7 @@
   "$schema": "https://unpkg.com/@changesets/config@3.1.4/schema.json",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "fixed": [["@lunchbox/*"]],
+  "fixed": [["@lunchbox-tools/*"]],
   "linked": [],
   "access": "public",
   "baseBranch": "master",

@@ -8,7 +8,7 @@ vi.mock('@clack/prompts', () => ({
   text: vi.fn(),
 }));
 
-import { unwrap } from '@lunchbox/utils';
+import { unwrap } from '@lunchbox-tools/utils';
 
 describe('unwrap', () => {
   it('exits process when value is a cancel symbol', () => {

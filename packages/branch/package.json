@@ -1,5 +1,5 @@
 {
-  "name": "@lunchbox/branch",
+  "name": "@lunchbox-tools/branch",
   "version": "1.0.0",
   "type": "module",
   "license": "ISC",
@@ -30,7 +30,7 @@
     }
   },
   "devDependencies": {
-    "@lunchbox/utils": "workspace:*",
+    "@lunchbox-tools/utils": "workspace:*",
     "@types/node": "24.8.0",
     "@vitest/coverage-v8": "catalog:",
     "tsdown": "catalog:",

@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noConsole: <Used to display info to the user> */
 
 import { autocomplete, box, confirm, intro, outro, select, text } from '@clack/prompts';
-import { runCommand, unwrap } from '@lunchbox/utils';
+import { runCommand, unwrap } from '@lunchbox-tools/utils';
 import { defaultConfig } from './constants';
 import { formatBranchName } from './format';
 import type { BranchConfig } from './type';
