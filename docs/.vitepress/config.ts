@@ -1,6 +1,7 @@
 import { defineConfig } from 'vitepress';
 
 export default defineConfig({
+  base: '/lunchbox/',
   description: 'CLI tools for committing, branching, and releasing packages',
 
   themeConfig: {
