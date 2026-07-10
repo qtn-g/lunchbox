@@ -6,10 +6,10 @@ const commitPrompt = setupCommitPrompt({
   commitScopes: [
     { label: 'commit   — Commit package', value: 'commit' },
     { label: 'branch   — Branch package', value: 'branch' },
+    { label: 'config   — Configuration files', value: 'config' },
     { label: 'ci       — Continuous Integration', value: 'ci' },
-    { label: 'deps     — Dependency updates', value: 'deps' },
-    { label: 'core     — Core business logic', value: 'core' }
+    { label: 'core     — Core business logic', value: 'core' },
+    { label: 'doc     — Documentation', value: 'doc' },
   ],
-  noVerify: false
 });
 commitPrompt.run();

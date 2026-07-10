@@ -87,6 +87,21 @@ Never change this pattern — it allows consumers and the dev server to resolve 
 - Mock `@inquirer/prompts` with `vi.mock` for prompt integration tests; mock `node:child_process` and `node:fs` for git layer tests.
 - Do not test third-party library behaviour — only test your own logic.
 
+## Releasing
+
+Releases are triggered by pushing a `v*` tag. The workflow (`.github/workflows/release.yml`) builds, tests, and publishes to npm.
+
+Release flow:
+1. Create changesets as you work: `pnpm changeset`
+2. When ready to release, run `pnpm changeset version` to bump versions and update changelogs
+3. Commit the version bumps, then tag and push:
+   ```sh
+   git tag v<x.y.z>
+   git push && git push --tags
+   ```
+
+Do not manually publish packages — always go through the tag-triggered CI.
+
 ## Code Style
 
 - All TypeScript rules are in `.github/instructions/typescript.instructions.md` (applied automatically to `**/*.ts` files).

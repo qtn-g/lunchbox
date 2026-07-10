@@ -22,7 +22,7 @@ export interface CommitScope {
  *     { label: 'api — Public API surface', value: 'api' },
  *     { label: 'ui  — Components & styling', value: 'ui' },
  *   ],
- *   noVerify: true,
+ *   noVerify: false,
  *   maximumSubjectLength: 72,
  * };
  */
@@ -40,9 +40,9 @@ export interface CommitConfig {
   /**
    * @example
    * const commitConfig: CommitConfig = {
-   *   commitTypes: [
-   *     { label: 'feat — A new feature', section: 'Features', value: 'feat' },
-   *     { label: 'fix  — A bug fix', section: 'Bug Fixes', value: 'fix' },
+   *   commitScopes: [
+   *     { label: 'api — Public API surface', value: 'api' },
+   *     { label: 'ui  — Components & styling', value: 'ui' },
    *   ],
    * }
    */
