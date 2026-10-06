@@ -25,6 +25,29 @@ import { runCommand } from '@lunchbox-tools/utils';
 const branches = runCommand('git branch');
 ```
 
+### `tryRunCommand(command: string, opts?): CommandResult`
+
+Same as `runCommand` but never exits: returns `{ ok: true, value }` or `{ ok: false, error }`. Use it for optional steps such as `git fetch` while offline.
+
+```ts
+import { tryRunCommand } from '@lunchbox-tools/utils';
+
+const result = tryRunCommand('git fetch --all --prune');
+```
+
+### Ticket helpers
+
+Shared ticket logic for the branch and commit prompts, driven by `TicketSettings` (`ticketProvider`, `ticketPrefix`):
+
+| Function | Purpose |
+|---|---|
+| `isTicketEnabled(provider)` | `false` when the provider is `none` |
+| `normalizeTicket(settings, input)` | Canonical ticket (`proj-123` → `PROJ-123`, `#42` → `42`, `123` → `PROJ-123` with `ticketPrefix: 'PROJ-'`) |
+| `validateTicket(settings, input)` | `true` or an error message; the ticket is mandatory when a provider is set |
+| `formatTicketReference(settings, ticket)` | Commit footer (`Refs: PROJ-123`, `Refs: #42`) |
+| `extractTicketFromBranch(settings, branch)` | Ticket found in a `type/TICKET-description` branch name, or `''` |
+| `askTicket(settings)` | Prompts for the mandatory ticket; returns `''` without prompting when the provider is `none` |
+
 ## License
 
 ISC

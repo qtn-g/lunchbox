@@ -1,3 +1,5 @@
+import type { TicketSettings } from '@lunchbox-tools/utils';
+
 export interface CommitType {
   label: string;
   section: string;
@@ -24,9 +26,11 @@ export interface CommitScope {
  *   ],
  *   noVerify: false,
  *   maximumSubjectLength: 72,
+ *   ticketPrefix: 'PROJ-',
+ *   ticketProvider: 'jira',
  * };
  */
-export interface CommitConfig {
+export interface CommitConfig extends TicketSettings {
   /**
    * @example
    * const commitConfig: CommitConfig = {

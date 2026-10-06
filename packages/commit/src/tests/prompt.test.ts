@@ -8,6 +8,7 @@ vi.mock('@clack/prompts', () => ({
   confirm: vi.fn().mockResolvedValue(false),
   intro: vi.fn(),
   isCancel: vi.fn(() => false),
+  log: { info: vi.fn() },
   multiselect: vi.fn().mockResolvedValue([]),
   outro: vi.fn(),
   select: vi.fn().mockResolvedValue(''),
@@ -32,6 +33,8 @@ const setupPromptMocks = (): void => {
   vi.mocked(text).mockResolvedValueOnce('add new button').mockResolvedValueOnce('').mockResolvedValueOnce('');
   vi.mocked(confirm).mockResolvedValue(true);
 };
+
+const textPromptsWithoutTicket = 3;
 
 describe('CommitPrompt', () => {
   beforeEach(() => {
@@ -111,5 +114,57 @@ describe('CommitPrompt', () => {
 
     expect(fs.writeFileSync).not.toHaveBeenCalled();
     consoleSpy.mockRestore();
+  });
+
+  it('does not ask for a ticket by default', async () => {
+    setupPromptMocks();
+
+    await setupCommitPrompt().run();
+
+    expect(vi.mocked(text)).toHaveBeenCalledTimes(textPromptsWithoutTicket);
+    expect(vi.mocked(fs.writeFileSync).mock.calls[0]?.[1]).not.toContain('Refs:');
+  });
+
+  it('uses the ticket found in the branch name without asking for it', async () => {
+    mockExecSync.mockImplementation((cmd: string) => {
+      if (cmd === 'git rev-parse --git-dir') {
+        return '.git';
+      }
+      if (cmd === 'git branch --show-current') {
+        return 'feature/PROJ-123-add-button\n';
+      }
+      return '';
+    });
+    setupPromptMocks();
+
+    await setupCommitPrompt({ ticketProvider: 'jira' }).run();
+
+    expect(vi.mocked(text)).toHaveBeenCalledTimes(textPromptsWithoutTicket);
+    expect(vi.mocked(fs.writeFileSync).mock.calls[0]?.[1]).toBe('feat(api, ui): add new button\n\nRefs: PROJ-123\n');
+  });
+
+  it('asks for the ticket when the branch name has none', async () => {
+    mockExecSync.mockImplementation((cmd: string) => {
+      if (cmd === 'git rev-parse --git-dir') {
+        return '.git';
+      }
+      return cmd === 'git branch --show-current' ? 'main\n' : '';
+    });
+    setupPromptMocks();
+    vi.mocked(text).mockResolvedValueOnce('#42');
+
+    await setupCommitPrompt({ ticketProvider: 'github' }).run();
+
+    expect(vi.mocked(text)).toHaveBeenCalledTimes(textPromptsWithoutTicket + 1);
+    expect(vi.mocked(fs.writeFileSync).mock.calls[0]?.[1]).toContain('Refs: #42');
+  });
+
+  it('prepends the ticket prefix to a bare number', async () => {
+    setupPromptMocks();
+    vi.mocked(text).mockResolvedValueOnce('123');
+
+    await setupCommitPrompt({ ticketPrefix: 'PROJ-', ticketProvider: 'jira' }).run();
+
+    expect(vi.mocked(fs.writeFileSync).mock.calls[0]?.[1]).toContain('Refs: PROJ-123');
   });
 });

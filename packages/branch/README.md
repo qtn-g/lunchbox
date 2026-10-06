@@ -9,13 +9,15 @@ Interactive CLI for generating standardised git branch names.
 ```
 src/
   constants.ts   ← default branch types and config
-  format.ts      ← kebab-case conversion helpers
+  format.ts      ← kebab-case conversion and branch name helpers
   prompt.ts      ← @clack prompt sequence
+  source.ts      ← source branch listing (local + remote) helpers
   type.ts        ← TypeScript interfaces
   index.ts       ← public API (setupBranchPrompt)
   tests/
     format.test.ts
     prompt.test.ts
+    source.test.ts
 ```
 
 ## Local development

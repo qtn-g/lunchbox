@@ -2,7 +2,7 @@
 
 A pnpm monorepo containing CLI utilities for branch creation and Conventional Commit message generation.
 
-**For usage documentation, see the [documentation site](https://qgirard.github.io/lunchbox/).**
+**For usage documentation, see the [documentation site](https://qtn-g.github.io/lunchbox/).**
 
 ## Packages
 
@@ -58,9 +58,3 @@ git push && git push --tags
 ```
 
 Pushing a `v*` tag triggers the release workflow which builds, tests, and publishes to npm.
-
-### Required secrets
-
-| Secret | Description |
-| --- | --- |
-| `NPM_TOKEN` | npm access token with publish permissions |

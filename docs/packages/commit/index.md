@@ -54,6 +54,7 @@ The prompt will guide you through:
 3. **Subject** — Short description of the change
 4. **Body** — Optional detailed description
 5. **Breaking change** — Optional breaking change description
+6. **Ticket** — Mandatory when `ticketProvider` is configured; skipped when the branch name already contains it
 
 The generated message follows the format:
 

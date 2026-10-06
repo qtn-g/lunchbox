@@ -24,3 +24,17 @@ export const runCommand = (command: string, opts?: Omit<ExecSyncOptionsWithStrin
     }
   }
 };
+
+export type CommandResult = { ok: true; value: string } | { ok: false; error: string };
+
+/**
+ * Runs a command without exiting the process on failure.
+ * Use it for optional steps (e.g. `git fetch` while offline).
+ */
+export const tryRunCommand = (command: string, opts?: Omit<ExecSyncOptionsWithStringEncoding, 'encoding'>): CommandResult => {
+  try {
+    return { ok: true, value: execSync(command, { encoding: 'utf-8', ...opts }) };
+  } catch (error) {
+    return { error: error instanceof Error ? error.message : String(error), ok: false };
+  }
+};

@@ -8,6 +8,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: ['api'],
       subject: 'add endpoint',
+      ticketReference: '',
       type: 'feat',
     });
 
@@ -20,6 +21,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: ['api', 'auth'],
       subject: 'refactor handlers',
+      ticketReference: '',
       type: 'refactor',
     });
 
@@ -32,6 +34,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: ['core'],
       subject: 'update logic',
+      ticketReference: '',
       type: 'fix',
     });
 
@@ -44,6 +47,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: ['ui'],
       subject: 'fix layout',
+      ticketReference: '',
       type: 'fix',
     });
 
@@ -56,6 +60,7 @@ describe('formatCommitMessage', () => {
       breakingChange: 'removed deprecated API',
       scopes: ['api'],
       subject: 'remove v1 endpoints',
+      ticketReference: '',
       type: 'feat',
     });
 
@@ -68,6 +73,7 @@ describe('formatCommitMessage', () => {
       breakingChange: 'auth flow changed',
       scopes: ['auth'],
       subject: 'overhaul auth',
+      ticketReference: '',
       type: 'feat',
     });
 
@@ -80,6 +86,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: [],
       subject: 'initial commit',
+      ticketReference: '',
       type: 'chore',
     });
 
@@ -92,6 +99,7 @@ describe('formatCommitMessage', () => {
       breakingChange: '',
       scopes: ['deps'],
       subject: 'bump versions',
+      ticketReference: '',
       type: 'build',
     });
 
@@ -104,10 +112,39 @@ describe('formatCommitMessage', () => {
       breakingChange: '   ',
       scopes: ['core'],
       subject: 'minor tweak',
+      ticketReference: '',
       type: 'fix',
     });
 
     expect(result).toBe('fix(core): minor tweak');
+  });
+});
+
+describe('formatCommitMessage with ticket', () => {
+  it('appends the ticket reference as a footer', () => {
+    const result = formatCommitMessage({
+      body: '',
+      breakingChange: '',
+      scopes: ['api'],
+      subject: 'add endpoint',
+      ticketReference: 'Refs: PROJ-123',
+      type: 'feat',
+    });
+
+    expect(result).toBe('feat(api): add endpoint\n\nRefs: PROJ-123');
+  });
+
+  it('groups the ticket reference and breaking change in the same footer block', () => {
+    const result = formatCommitMessage({
+      body: 'Details.',
+      breakingChange: 'removed v1',
+      scopes: ['api'],
+      subject: 'drop v1',
+      ticketReference: 'Refs: #42',
+      type: 'feat',
+    });
+
+    expect(result).toBe('feat(api)!: drop v1\n\nDetails.\n\nRefs: #42\nBREAKING CHANGE: removed v1');
   });
 });
 

@@ -9,4 +9,7 @@ const BRANCH_TYPES: Array<BranchType> = [
 
 export const defaultConfig: BranchConfig = {
   branchTypes: [...BRANCH_TYPES],
+  fetchRemoteBranches: true,
+  ticketPrefix: '',
+  ticketProvider: 'none',
 };

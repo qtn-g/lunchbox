@@ -33,18 +33,32 @@ describe('toKebabCase', () => {
 
 describe('formatBranchName', () => {
   it('formats a feature branch name', () => {
-    expect(formatBranchName('feature', 'Add user authentication')).toBe('feature/add-user-authentication');
+    expect(formatBranchName({ description: 'Add user authentication', ticket: '', type: 'feature' })).toBe(
+      'feature/add-user-authentication'
+    );
   });
 
   it('formats a bugfix branch name', () => {
-    expect(formatBranchName('bugfix', 'Fix login redirect')).toBe('bugfix/fix-login-redirect');
+    expect(formatBranchName({ description: 'Fix login redirect', ticket: '', type: 'bugfix' })).toBe('bugfix/fix-login-redirect');
   });
 
   it('formats a release branch name', () => {
-    expect(formatBranchName('release', 'version 2 release')).toBe('release/version-2-release');
+    expect(formatBranchName({ description: 'version 2 release', ticket: '', type: 'release' })).toBe('release/version-2-release');
   });
 
   it('formats a custom type branch name', () => {
-    expect(formatBranchName('hotfix', 'Urgent production fix')).toBe('hotfix/urgent-production-fix');
+    expect(formatBranchName({ description: 'Urgent production fix', ticket: '', type: 'hotfix' })).toBe(
+      'hotfix/urgent-production-fix'
+    );
+  });
+
+  it('inserts a Jira key after the type, keeping it upper-case', () => {
+    expect(formatBranchName({ description: 'Add login', ticket: 'PROJ-123', type: 'feature' })).toBe(
+      'feature/PROJ-123-add-login'
+    );
+  });
+
+  it('inserts a numeric ticket after the type', () => {
+    expect(formatBranchName({ description: 'Fix login', ticket: '42', type: 'bugfix' })).toBe('bugfix/42-fix-login');
   });
 });

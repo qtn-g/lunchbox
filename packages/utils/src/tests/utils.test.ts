@@ -12,7 +12,7 @@ vi.mock('node:child_process', () => ({
   execSync: mockExecSync,
 }));
 
-import { runCommand, unwrap } from '../utils';
+import { runCommand, tryRunCommand, unwrap } from '../utils';
 
 describe('unwrap', () => {
   it('exits process when value is a cancel symbol', () => {
@@ -65,5 +65,25 @@ describe('runCommand', () => {
 
     exitSpy.mockRestore();
     consoleSpy.mockRestore();
+  });
+});
+
+describe('tryRunCommand', () => {
+  it('returns the output on success', () => {
+    mockExecSync.mockReturnValue('ok');
+
+    expect(tryRunCommand('git fetch')).toEqual({ ok: true, value: 'ok' });
+  });
+
+  it('returns the error instead of exiting on failure', () => {
+    const exitSpy = vi.spyOn(process, 'exit').mockImplementation(() => undefined as never);
+    mockExecSync.mockImplementation(() => {
+      throw new Error('network unreachable');
+    });
+
+    expect(tryRunCommand('git fetch')).toEqual({ error: 'network unreachable', ok: false });
+    expect(exitSpy).not.toHaveBeenCalled();
+
+    exitSpy.mockRestore();
   });
 });

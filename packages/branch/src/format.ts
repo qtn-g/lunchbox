@@ -8,6 +8,14 @@ export const toKebabCase = (input: string): string => {
     .replace(/^-|-$/g, '');
 };
 
-export const formatBranchName = (type: string, description: string): string => {
-  return `${type}/${toKebabCase(description)}`;
+export interface FormatBranchNameInput {
+  type: string;
+  description: string;
+  /** Normalized ticket (e.g. `PROJ-123`, `123`), empty to skip. Kept as-is so Jira keys stay upper-case. */
+  ticket: string;
+}
+
+export const formatBranchName = ({ type, description, ticket }: FormatBranchNameInput): string => {
+  const slug = [ticket.trim(), toKebabCase(description)].filter(Boolean).join('-');
+  return `${type}/${slug}`;
 };

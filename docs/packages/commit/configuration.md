@@ -10,6 +10,8 @@ interface CommitConfig {
   commitScopes: Array<CommitScope>;
   noVerify: boolean;
   maximumSubjectLength: number;
+  ticketProvider: 'none' | 'jira' | 'github' | 'azure';
+  ticketPrefix: string;
 }
 ```
 
@@ -48,6 +50,35 @@ Maximum allowed characters for the commit subject line.
 
 - **Default:** `80`
 
+### `ticketProvider`
+
+Issue tracker used to link the commit to a ticket. When different from `none`, a ticket is **mandatory**. If the current branch name contains one (e.g. `feature/PROJ-123-add-login`), it is used directly; otherwise the prompt asks for it. The ticket is added as a `Refs:` footer that the tracker uses to link the commit.
+
+| Provider | Footer |
+|---|---|
+| `none` | — |
+| `jira` | `Refs: PROJ-123` |
+| `github` | `Refs: #123` |
+| `azure` | `Refs: #123` |
+
+```
+feat(api): add login endpoint
+
+Refs: PROJ-123
+```
+
+- **Default:** `'none'`
+
+### `ticketPrefix`
+
+Prepended **as-is** to a ticket typed as a bare number — nothing (no `-`) is added in between, so it works with any tracker. Full tickets (e.g. `OTHER-45`) are kept unchanged. The result must still be a valid ticket for the provider.
+
+```ts
+{ ticketPrefix: 'PROJ-', ticketProvider: 'jira' } // 123 → PROJ-123
+```
+
+- **Default:** `''`
+
 ## Example
 
 ```ts
@@ -65,6 +96,7 @@ setupCommitPrompt({
   ],
   maximumSubjectLength: 72,
   noVerify: true,
+  ticketProvider: 'github',
 }).run();
 ```
 

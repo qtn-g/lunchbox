@@ -49,15 +49,17 @@ pnpm branch
 
 The prompt will guide you through:
 
-1. **Source branch** — Autocomplete selector from existing local branches
+1. **Source branch** — Autocomplete selector from local and remote branches, defaulting to the current branch
 2. **Branch type** — Select the kind of branch (feature, bugfix, release, spike)
-3. **Description** — Free-text description of the branch purpose
-4. **Preview & confirm** — Review the generated name and confirm creation
+3. **Ticket** — Mandatory when `ticketProvider` is configured
+4. **Description** — Free-text description of the branch purpose
+5. **Preview & confirm** — Review the generated name and confirm creation
 
 The generated branch name follows the format:
 
 ```
 type/kebab-case-description
+type/TICKET-kebab-case-description   # with a ticket
 ```
 
 For example, selecting `feature` and typing "Add user authentication" produces:

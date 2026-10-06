@@ -1,8 +1,15 @@
 /** biome-ignore-all lint/suspicious/noConsole: <Used to display info to the user> */
 
 import fs from 'node:fs';
-import { box, confirm, intro, multiselect, outro, select } from '@clack/prompts';
-import { runCommand, unwrap } from '@lunchbox-tools/utils';
+import { box, confirm, intro, log, multiselect, outro, select } from '@clack/prompts';
+import {
+  askTicket,
+  extractTicketFromBranch,
+  formatTicketReference,
+  isTicketEnabled,
+  runCommand,
+  unwrap,
+} from '@lunchbox-tools/utils';
 import { defaultConfig } from './constants';
 import { formatCommitMessage } from './format';
 import { getCommitMessageFile, limitedInput, optionalInput } from './utils';
@@ -23,8 +30,10 @@ class CommitPrompt {
     const subject = await this.askSubject();
     const body = await this.askBody();
     const breakingChange = await this.askBreakingChange();
+    const ticket = await this.askTicket();
+    const ticketReference = formatTicketReference(this._config, ticket);
 
-    const commitMessage = formatCommitMessage({ body, breakingChange, scopes, subject, type });
+    const commitMessage = formatCommitMessage({ body, breakingChange, scopes, subject, ticketReference, type });
 
     this.previewCommitMessage(commitMessage);
     const confirmed = await this.askConfirmation();
@@ -46,6 +55,22 @@ class CommitPrompt {
     fs.writeFileSync(commitMessageFile, commitMessage + '\n', 'utf8');
     const noVerifyFlag = this._config.noVerify ? ' --no-verify' : '';
     runCommand(`git commit -F "${commitMessageFile}"${noVerifyFlag}`, { stdio: 'inherit' });
+  }
+
+  /**
+   * Uses the ticket found in the current branch name, otherwise asks for it.
+   */
+  private async askTicket(): Promise<string> {
+    if (!isTicketEnabled(this._config.ticketProvider)) {
+      return '';
+    }
+    const currentBranch = runCommand('git branch --show-current', { stdio: ['pipe', 'pipe', 'pipe'] }).trim();
+    const branchTicket = extractTicketFromBranch(this._config, currentBranch);
+    if (!branchTicket) {
+      return await askTicket(this._config);
+    }
+    log.info(`Ticket ${branchTicket} found in branch "${currentBranch}".`);
+    return branchTicket;
   }
 
   private askBreakingChange(): Promise<string> {
@@ -103,6 +128,9 @@ class CommitPrompt {
  *
  * // create and run with custom config
  * setupCommitPrompt({ maximumSubjectLength: 72 }).run();
+ *
+ * // link commits to Jira tickets (read from the branch name, or `123` → `PROJ-123`, the prefix is used as-is)
+ * setupCommitPrompt({ ticketPrefix: 'PROJ-', ticketProvider: 'jira' }).run();
  *
  * @param config - Optional partial `CommitConfig` to override defaults.
  * @returns A configured `CommitPrompt` instance.

@@ -27,4 +27,6 @@ export const defaultConfig: CommitConfig = {
   commitTypes: [...COMMIT_TYPES],
   maximumSubjectLength: MAXIMUM_SUBJECT_LENGTH,
   noVerify: false,
+  ticketPrefix: '',
+  ticketProvider: 'none',
 };
