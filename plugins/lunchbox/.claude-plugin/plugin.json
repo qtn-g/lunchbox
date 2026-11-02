@@ -1,0 +1,14 @@
+{
+  "name": "lunchbox",
+  "displayName": "Lunchbox",
+  "version": "1.0.0",
+  "description": "Creates git branches and commits that follow a repository's lunchbox configuration, using plain git.",
+  "author": {
+    "name": "Quentin Girard",
+    "url": "https://github.com/qtn-g"
+  },
+  "homepage": "https://qtn-g.github.io/lunchbox/",
+  "repository": "https://github.com/qtn-g/lunchbox",
+  "license": "ISC",
+  "keywords": ["git", "branch", "commit", "conventional-commits"]
+}

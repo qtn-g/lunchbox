@@ -1,0 +1,14 @@
+{
+  "name": "lunchbox-coding-style",
+  "displayName": "Lunchbox Coding Style",
+  "version": "1.0.0",
+  "description": "An opinionated coding style that Claude applies whenever it writes, refactors, or reviews code.",
+  "author": {
+    "name": "Quentin Girard",
+    "url": "https://github.com/qtn-g"
+  },
+  "homepage": "https://github.com/qtn-g/lunchbox/tree/master/plugins/lunchbox-coding-style",
+  "repository": "https://github.com/qtn-g/lunchbox",
+  "license": "ISC",
+  "keywords": ["coding-style", "code-review", "typescript"]
+}
