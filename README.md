@@ -46,20 +46,4 @@ pnpm run build
 
 ## Releasing
 
-This monorepo uses [Changesets](https://github.com/changesets/changesets).
-
-```sh
-# 1. Create a changeset for your changes
-pnpm changeset
-
-# 2. When ready to release, bump versions and update changelogs
-pnpm changeset version
-
-# 3. Commit, tag, and push
-git add .
-git commit -m "release: v<x.y.z>"
-git tag v<x.y.z>
-git push && git push --tags
-```
-
-Pushing a `v*` tag triggers the release workflow which builds, tests, and publishes to npm.
+This monorepo uses [Changesets](https://github.com/changesets/changesets). Add a changeset with `pnpm changeset` for every user-facing change, and see [HOW_TO_RELEASE.md](HOW_TO_RELEASE.md) to release.

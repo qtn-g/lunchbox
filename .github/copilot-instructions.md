@@ -89,18 +89,7 @@ Never change this pattern — it allows consumers and the dev server to resolve 
 
 ## Releasing
 
-Releases are triggered by pushing a `v*` tag. The workflow (`.github/workflows/release.yml`) builds, tests, and publishes to npm.
-
-Release flow:
-1. Create changesets as you work: `pnpm changeset`
-2. When ready to release, run `pnpm changeset version` to bump versions and update changelogs
-3. Commit the version bumps, then tag and push:
-   ```sh
-   git tag v<x.y.z>
-   git push && git push --tags
-   ```
-
-Do not manually publish packages — always go through the tag-triggered CI.
+Create changesets as you work with `pnpm changeset`. To release, follow `.claude/skills/release/SKILL.md`.
 
 ## Code Style
 
