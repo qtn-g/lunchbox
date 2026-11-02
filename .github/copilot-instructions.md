@@ -104,5 +104,5 @@ Do not manually publish packages — always go through the tag-triggered CI.
 
 ## Code Style
 
-- All TypeScript rules are in `.github/instructions/typescript.instructions.md` (applied automatically to `**/*.ts` files).
+- Before writing, refactoring, or reviewing code, read `skills/coding-style/SKILL.md`.
 - Run `pnpm lint` before committing to check Biome compliance.
