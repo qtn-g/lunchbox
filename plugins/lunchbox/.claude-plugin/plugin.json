@@ -1,7 +1,7 @@
 {
   "name": "lunchbox",
   "displayName": "Lunchbox",
-  "version": "1.1.0",
+  "version": "1.2.0",
   "description": "Creates git branches and commits that follow a repository's lunchbox configuration, and applies an opinionated coding style to all code.",
   "author": {
     "name": "Quentin Girard",
