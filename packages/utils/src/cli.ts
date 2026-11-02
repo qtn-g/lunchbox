@@ -4,11 +4,14 @@ import { parseArgs } from 'node:util';
 import { CONFIG_FILE_NAME, loadConfig } from './config';
 import type { ConfigResult, ConfigSource } from './config';
 
-export interface CliOptions<T> extends ConfigSource<T> {
+export interface CliInfo {
   /** Name of the executable, as typed by the user. */
   readonly name: string;
   readonly description: string;
   readonly version: string;
+}
+
+export interface CliOptions<T> extends CliInfo, ConfigSource<T> {
   /** Starts the interactive flow of the tool. */
   readonly run: (config: Partial<T>) => Promise<void>;
 }
@@ -33,7 +36,11 @@ const parseFlags = (args: ReadonlyArray<string>): ConfigResult<CliFlags> => {
   }
 };
 
-const formatHelp = <T>({ description, name, section }: CliOptions<T>): string => {
+const formatConfigNote = (section: string): string => {
+  return `Options are read from the "${section}" section of ${CONFIG_FILE_NAME}, at the root of the git repository.`;
+};
+
+const formatHelp = ({ description, name }: CliInfo, notes: ReadonlyArray<string>): string => {
   return [
     `${name} — ${description}`,
     '',
@@ -42,9 +49,33 @@ const formatHelp = <T>({ description, name, section }: CliOptions<T>): string =>
     'Options:',
     '  -h, --help     Show this help',
     '  -v, --version  Show the version',
-    '',
-    `Options are read from the "${section}" section of ${CONFIG_FILE_NAME}, at the root of the git repository.`,
+    ...notes.flatMap((note) => ['', note]),
   ].join('\n');
+};
+
+/**
+ * Handles `--help`, `--version` and invalid arguments. Returns whether the executable should go on and start.
+ * Invalid arguments set a non-zero exit code.
+ */
+export const handleCliFlags = (
+  info: CliInfo,
+  { args = process.argv.slice(2), notes = [] }: { args?: ReadonlyArray<string>; notes?: ReadonlyArray<string> } = {}
+): boolean => {
+  const flags = parseFlags(args);
+  if (!flags.ok) {
+    console.error(`${flags.error}\nRun "${info.name} --help" for usage.`);
+    process.exitCode = 1;
+    return false;
+  }
+  if (flags.value.help) {
+    console.log(formatHelp(info, notes));
+    return false;
+  }
+  if (flags.value.version) {
+    console.log(info.version);
+    return false;
+  }
+  return true;
 };
 
 /**
@@ -52,18 +83,7 @@ const formatHelp = <T>({ description, name, section }: CliOptions<T>): string =>
  * Usage and configuration errors set a non-zero exit code without starting the tool.
  */
 export const runCli = async <T>(options: CliOptions<T>, args: ReadonlyArray<string> = process.argv.slice(2)): Promise<void> => {
-  const flags = parseFlags(args);
-  if (!flags.ok) {
-    console.error(`${flags.error}\nRun "${options.name} --help" for usage.`);
-    process.exitCode = 1;
-    return;
-  }
-  if (flags.value.help) {
-    console.log(formatHelp(options));
-    return;
-  }
-  if (flags.value.version) {
-    console.log(options.version);
+  if (!handleCliFlags(options, { args, notes: [formatConfigNote(options.section)] })) {
     return;
   }
   const config = loadConfig(options);

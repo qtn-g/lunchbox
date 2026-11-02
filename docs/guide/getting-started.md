@@ -9,6 +9,16 @@ Lunchbox is a collection of small CLI tools that help enforce consistent Git wor
 | [`@lunchbox-tools/commit`](/packages/commit/) | Interactive commit message generator |
 | [`@lunchbox-tools/branch`](/packages/branch/) | Interactive branch name generator |
 
+## Interactive Setup
+
+Choose what you want and review the changes before anything is applied:
+
+```bash
+npx @lunchbox-tools/setup
+```
+
+It can install the commit and branch tools (in the project with your package manager, or globally), install the [agent skills](#agent-skills) through the skills CLI, and add git aliases such as `git sweep` to your global git config. It asks before replacing an alias with a different value, and leaves an existing `commit` or `branch` script alone.
+
 ## Quick Start
 
 Run a tool without installing anything, from anywhere inside a git repository:
@@ -77,6 +87,16 @@ Commit `lunchbox.config.json` at the root of your repository to share options wi
 ```
 
 See the [branch](/packages/branch/configuration) and [commit](/packages/commit/configuration) options.
+
+## Agent Skills
+
+The tools are interactive, so a coding agent cannot drive them. The [skills](https://github.com/qtn-g/lunchbox/tree/master/skills) teach it to create the same branches and commits with plain git, following your configuration:
+
+```bash
+npx skills add qtn-g/lunchbox
+```
+
+The repository also holds `coding-style`, the coding conventions lunchbox itself follows. It has nothing to do with the tools, so install it only if you want those conventions in your project.
 
 ## Use From a Script
 

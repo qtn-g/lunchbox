@@ -1,0 +1,43 @@
+{
+  "name": "@lunchbox-tools/setup",
+  "version": "1.1.0",
+  "type": "module",
+  "license": "ISC",
+  "author": "",
+  "description": "interactive installer for the lunchbox tools, skills and git aliases",
+  "scripts": {
+    "build": "tsdown",
+    "dev": "tsdown --watch",
+    "lint": "biome check",
+    "test": "vitest run --coverage",
+    "test:verbose": "vitest run --reporter verbose"
+  },
+  "bin": {
+    "lunchbox-setup": "./dist/cli.mjs"
+  },
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    "./package.json": "./package.json"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/qtn-g/lunchbox.git",
+    "directory": "packages/setup"
+  },
+  "publishConfig": {
+    "access": "public"
+  },
+  "devDependencies": {
+    "@lunchbox-tools/utils": "workspace:*",
+    "@types/node": "24.8.0",
+    "@vitest/coverage-v8": "catalog:",
+    "tsdown": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  },
+  "dependencies": {
+    "@clack/prompts": "1.7.0"
+  }
+}

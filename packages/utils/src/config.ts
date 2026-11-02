@@ -21,7 +21,7 @@ export interface ConfigSource<T> {
   readonly validators: ConfigValidators<T>;
 }
 
-const isRecord = (value: unknown): value is Record<string, unknown> => {
+export const isRecord = (value: unknown): value is Record<string, unknown> => {
   return typeof value === 'object' && value !== null && !Array.isArray(value);
 };
 
