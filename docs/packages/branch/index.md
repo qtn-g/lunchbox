@@ -2,7 +2,36 @@
 
 Interactive CLI prompt that generates **well-formatted branch names** from a type and description.
 
-## Installation
+## Usage
+
+Run it without installing anything, from anywhere inside a git repository:
+
+::: code-group
+
+```bash [npm]
+npx @lunchbox-tools/branch
+```
+
+```bash [yarn]
+yarn dlx @lunchbox-tools/branch
+```
+
+```bash [pnpm]
+pnpm dlx @lunchbox-tools/branch
+```
+
+:::
+
+### Installation
+
+Install it globally to get the `lunchbox-branch` command everywhere:
+
+```bash
+npm install -g @lunchbox-tools/branch
+lunchbox-branch
+```
+
+Or add it to a project, to pin the version for the whole team:
 
 ::: code-group
 
@@ -20,23 +49,12 @@ pnpm add -D @lunchbox-tools/branch
 
 :::
 
-## Usage
-
-Create a script (e.g. `scripts/branch.mjs`) and call the setup function:
-
-```js
-#!/usr/bin/env node
-import { setupBranchPrompt } from '@lunchbox-tools/branch';
-
-setupBranchPrompt().run();
-```
-
 Then add an npm script in your `package.json`:
 
 ```json
 {
   "scripts": {
-    "branch": "node ./scripts/branch.mjs"
+    "branch": "lunchbox-branch"
   }
 }
 ```
@@ -46,6 +64,21 @@ Run it with:
 ```bash
 pnpm branch
 ```
+
+Options are read from [`lunchbox.config.json`](./configuration#config-file).
+
+### Use it from a script
+
+You can also call it from your own script, for instance to compute the configuration:
+
+```js
+#!/usr/bin/env node
+import { setupBranchPrompt } from '@lunchbox-tools/branch';
+
+setupBranchPrompt().run();
+```
+
+## Prompts
 
 The prompt will guide you through:
 

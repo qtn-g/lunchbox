@@ -1,6 +1,24 @@
 # Configuration
 
-`setupCommitPrompt` accepts a partial `CommitConfig` object. Any fields you provide override the defaults.
+Options come from a [config file](#config-file) when you use the `lunchbox-commit` command, or are passed to `setupCommitPrompt` as a partial `CommitConfig` object when you call it from a script. Any fields you provide override the defaults.
+
+## Config file
+
+The `lunchbox-commit` command reads its options from the `"commit"` section of `lunchbox.config.json`, at the root of the git repository. The file is optional, and any option left out keeps its default. A typo or an invalid value stops the command with an error naming the option.
+
+```json
+{
+  "commit": {
+    "commitScopes": [
+      { "label": "api — Public API surface", "value": "api" },
+      { "label": "ui  — Components & styling", "value": "ui" }
+    ],
+    "maximumSubjectLength": 72,
+    "ticketPrefix": "PROJ-",
+    "ticketProvider": "jira"
+  }
+}
+```
 
 ## CommitConfig
 

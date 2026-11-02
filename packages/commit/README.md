@@ -2,12 +2,23 @@
 
 Interactive CLI for generating [Conventional Commits](https://www.conventionalcommits.org/) messages.
 
-**For usage docs and configuration reference, see the [documentation site](https://qgirard.github.io/lunchbox/packages/commit).**
+**For usage docs and configuration reference, see the [documentation site](https://qtn-g.github.io/lunchbox/packages/commit).**
+
+## Usage
+
+```sh
+npx @lunchbox-tools/commit              # run without installing
+npm install -g @lunchbox-tools/commit   # or install the `lunchbox-commit` command
+```
+
+Options are read from the `"commit"` section of `lunchbox.config.json`, at the root of the git repository.
 
 ## Package structure
 
 ```
 src/
+  cli.ts         ← `lunchbox-commit` executable
+  config.ts      ← config file validators
   constants.ts   ← default commit types, scopes, and limits
   format.ts      ← Conventional Commit message assembly
   prompt.ts      ← @clack prompt sequence

@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noConsole: <Used to display info to the user> */
 
-import { autocomplete, box, confirm, intro, outro, select, spinner, text } from '@clack/prompts';
-import { askTicket, runCommand, tryRunCommand, unwrap } from '@lunchbox-tools/utils';
+import { autocomplete, confirm, intro, outro, select, spinner, text } from '@clack/prompts';
+import { askTicket, runCommand, showPreview, tryRunCommand, unwrap } from '@lunchbox-tools/utils';
 import { defaultConfig } from './constants';
 import { formatBranchName } from './format';
 import { getSourceBranchHint, LIST_BRANCHES_COMMAND, parseBranchRefs, sortSourceBranches } from './source';
@@ -76,7 +76,7 @@ class BranchPrompt {
   }
 
   private previewBranchName(branchName: string): void {
-    box(branchName, 'Branch Name Preview');
+    showPreview(branchName, 'Branch Name Preview');
   }
 
   private createBranch(branchName: string, sourceBranch: SourceBranch): void {

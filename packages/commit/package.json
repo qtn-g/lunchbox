@@ -12,6 +12,9 @@
     "test": "vitest run --coverage",
     "test:verbose": "vitest run --reporter verbose"
   },
+  "bin": {
+    "lunchbox-commit": "./dist/cli.mjs"
+  },
   "files": [
     "dist"
   ],

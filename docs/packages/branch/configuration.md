@@ -1,6 +1,23 @@
 # Configuration
 
-`setupBranchPrompt` accepts a partial `BranchConfig` object. Any fields you provide override the defaults.
+Options come from a [config file](#config-file) when you use the `lunchbox-branch` command, or are passed to `setupBranchPrompt` as a partial `BranchConfig` object when you call it from a script. Any fields you provide override the defaults.
+
+## Config file
+
+The `lunchbox-branch` command reads its options from the `"branch"` section of `lunchbox.config.json`, at the root of the git repository. The file is optional, and any option left out keeps its default. A typo or an invalid value stops the command with an error naming the option.
+
+```json
+{
+  "branch": {
+    "branchTypes": [
+      { "label": "feature — New feature development", "value": "feature" },
+      { "label": "hotfix  — Urgent production fix", "value": "hotfix" }
+    ],
+    "ticketPrefix": "PROJ-",
+    "ticketProvider": "jira"
+  }
+}
+```
 
 ## BranchConfig
 

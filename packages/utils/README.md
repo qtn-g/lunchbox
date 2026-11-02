@@ -15,6 +15,10 @@ const answer = await text({ message: 'Enter name:' });
 const name = unwrap(answer); // exits if cancelled, otherwise returns string
 ```
 
+### `showPreview(content: string, title: string): void`
+
+Displays a preview in a box, or as plain text when the terminal is too narrow to draw one.
+
 ### `runCommand(command: string, opts?): string`
 
 Executes a shell command synchronously and returns its stdout as a string. On failure, logs the error and exits the process.
@@ -34,6 +38,14 @@ import { tryRunCommand } from '@lunchbox-tools/utils';
 
 const result = tryRunCommand('git fetch --all --prune');
 ```
+
+### `runCli(options, args?): Promise<void>`
+
+Entry point of the `lunchbox-*` executables: handles `--help` and `--version`, loads the config file and starts the tool. Usage and configuration errors set a non-zero exit code without starting the tool.
+
+### `loadConfig(source): ConfigResult<Partial<T>>`
+
+Loads and validates one section of `lunchbox.config.json`, at the root of the current git repository. A missing file or section yields an empty config. `parseConfig` does the same from the file contents, and `isString`, `isBoolean`, `isPositiveInteger`, `isOptionList` and `ticketValidators` are the building blocks of a tool's `ConfigValidators`.
 
 ### Ticket helpers
 

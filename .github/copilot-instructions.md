@@ -46,7 +46,7 @@ export default defineConfig({
 
 - Output is always ESM (`.mjs`). Do not add CJS output unless explicitly requested.
 - Type declarations emit as `.d.mts` alongside the bundle.
-- `src/index.ts` is the sole entry point per package; keep the public API surface explicit.
+- `src/index.ts` is the public entry point of a package; keep the public API surface explicit. Executables add `src/cli.ts` as a second entry, exposed through `bin`.
 
 ## Package Exports Convention
 
@@ -104,5 +104,5 @@ Do not manually publish packages — always go through the tag-triggered CI.
 
 ## Code Style
 
-- All TypeScript rules are in `.github/instructions/typescript.instructions.md` (applied automatically to `**/*.ts` files).
+- Before writing, refactoring, or reviewing code, read `skills/coding-style/SKILL.md`.
 - Run `pnpm lint` before committing to check Biome compliance.

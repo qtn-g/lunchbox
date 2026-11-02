@@ -24,7 +24,7 @@
   stat = !git --no-pager diff --stat
 
   # Clean merged branches
-  sweep = !git branch --merged master | grep -v 'master$' | xargs git branch -d && git remote prune origin
+  sweep = "!f() { for b in main master develop; do git rev-parse -q --verify $b >/dev/null && git branch --merged $b; done | grep -vE '^[*+]|^ *(main|master|develop)$' | sort -u | xargs -r git branch -d; git remote prune origin; }; f"
 
   # http://www.jukie.net/bart/blog/pimping-out-git-log
   lg = log --graph --all --pretty=format:'%Cred%h%Creset - %s %Cgreen(%cr) %C(bold blue)%an%Creset %C(yellow)%d%Creset'

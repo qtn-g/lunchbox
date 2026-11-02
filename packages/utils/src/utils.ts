@@ -1,7 +1,7 @@
 /** biome-ignore-all lint/suspicious/noConsole: Used to display info to the user */
 
 import { execSync } from 'node:child_process';
-import { cancel, isCancel } from '@clack/prompts';
+import { box, cancel, isCancel, log } from '@clack/prompts';
 import type { ExecSyncOptionsWithStringEncoding } from 'node:child_process';
 
 export const unwrap = <T>(value: T | symbol): T => {
@@ -10,6 +10,21 @@ export const unwrap = <T>(value: T | symbol): T => {
     process.exit(0);
   }
   return value;
+};
+
+/**
+ * Displays a preview in a box. `box` throws a `RangeError` when the terminal is too narrow to draw it
+ * (or reports no width at all), in which case the preview is printed without the box.
+ */
+export const showPreview = (content: string, title: string): void => {
+  try {
+    box(content, title);
+  } catch (error) {
+    if (!(error instanceof RangeError)) {
+      throw error;
+    }
+    log.message(`${title}\n${content}`);
+  }
 };
 
 export const runCommand = (command: string, opts?: Omit<ExecSyncOptionsWithStringEncoding, 'encoding'>): string => {

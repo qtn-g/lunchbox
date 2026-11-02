@@ -10,7 +10,12 @@ A pnpm monorepo containing CLI utilities for branch creation and Conventional Co
 | --- | --- |
 | [`@lunchbox-tools/branch`](packages/branch/README.md) | Interactive branch name generator |
 | [`@lunchbox-tools/commit`](packages/commit/README.md) | Interactive Conventional Commit message generator |
+| [`@lunchbox-tools/setup`](packages/setup/README.md) | Interactive installer for the tools, skills and git aliases |
 | [`@lunchbox-tools/utils`](packages/utils/README.md) | Shared internal utilities (private, not published) |
+
+Set everything up at once with `npx @lunchbox-tools/setup`, or run the tools directly with `npx @lunchbox-tools/branch` and `npx @lunchbox-tools/commit`, or install them to get the `lunchbox-branch` and `lunchbox-commit` commands.
+
+Coding agents can follow the same conventions through the [skills](skills/): `npx skills add qtn-g/lunchbox`.
 
 ## Development setup
 

@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { mockExecSync } = vi.hoisted(() => ({ mockExecSync: vi.fn() }));
 
@@ -24,7 +24,7 @@ vi.mock('node:fs', () => ({
 }));
 
 import fs from 'node:fs';
-import { confirm, multiselect, select, text } from '@clack/prompts';
+import { cancel, confirm, multiselect, select, text } from '@clack/prompts';
 import { setupCommitPrompt } from '../prompt';
 
 const setupPromptMocks = (): void => {
@@ -36,15 +36,34 @@ const setupPromptMocks = (): void => {
 
 const textPromptsWithoutTicket = 3;
 
+const STAGED_FILES_COMMAND = 'git diff --cached --name-only';
+
+const mockGit = (responses: Readonly<Record<string, string>> = {}): void => {
+  const allResponses = new Map(
+    Object.entries({ [STAGED_FILES_COMMAND]: 'a.txt\n', 'git rev-parse --git-dir': '.git', ...responses })
+  );
+  mockExecSync.mockImplementation((cmd: string) => allResponses.get(cmd) ?? '');
+};
+
 describe('CommitPrompt', () => {
   beforeEach(() => {
     vi.clearAllMocks();
-    mockExecSync.mockImplementation((cmd: string) => {
-      if (cmd === 'git rev-parse --git-dir') {
-        return '.git';
-      }
-      return '';
-    });
+    mockGit();
+  });
+
+  afterEach(() => {
+    process.exitCode = undefined;
+  });
+
+  it('stops before any prompt when nothing is staged', async () => {
+    mockGit({ [STAGED_FILES_COMMAND]: '' });
+
+    await setupCommitPrompt().run();
+
+    expect(cancel).toHaveBeenCalledWith('Nothing to commit, stage your changes with "git add" first.');
+    expect(process.exitCode).toBe(1);
+    expect(select).not.toHaveBeenCalled();
+    expect(fs.writeFileSync).not.toHaveBeenCalled();
   });
 
   it('builds correct commit message and writes to file on confirmation', async () => {
@@ -62,12 +81,7 @@ describe('CommitPrompt', () => {
   });
 
   it('resolves git dir with Unix path separator', async () => {
-    mockExecSync.mockImplementation((cmd: string) => {
-      if (cmd === 'git rev-parse --git-dir') {
-        return '/home/user/project/.git';
-      }
-      return '';
-    });
+    mockGit({ 'git rev-parse --git-dir': '/home/user/project/.git' });
     setupPromptMocks();
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => vi.fn());
 
@@ -82,12 +96,7 @@ describe('CommitPrompt', () => {
   });
 
   it('resolves git dir with Windows path separator', async () => {
-    mockExecSync.mockImplementation((cmd: string) => {
-      if (cmd === 'git rev-parse --git-dir') {
-        return 'C:\\Users\\user\\project\\.git';
-      }
-      return '';
-    });
+    mockGit({ 'git rev-parse --git-dir': 'C:\\Users\\user\\project\\.git' });
     await setupPromptMocks();
     const consoleSpy = vi.spyOn(console, 'log').mockImplementation(() => vi.fn());
 
@@ -126,15 +135,7 @@ describe('CommitPrompt', () => {
   });
 
   it('uses the ticket found in the branch name without asking for it', async () => {
-    mockExecSync.mockImplementation((cmd: string) => {
-      if (cmd === 'git rev-parse --git-dir') {
-        return '.git';
-      }
-      if (cmd === 'git branch --show-current') {
-        return 'feature/PROJ-123-add-button\n';
-      }
-      return '';
-    });
+    mockGit({ 'git branch --show-current': 'feature/PROJ-123-add-button\n' });
     setupPromptMocks();
 
     await setupCommitPrompt({ ticketProvider: 'jira' }).run();
@@ -144,12 +145,7 @@ describe('CommitPrompt', () => {
   });
 
   it('asks for the ticket when the branch name has none', async () => {
-    mockExecSync.mockImplementation((cmd: string) => {
-      if (cmd === 'git rev-parse --git-dir') {
-        return '.git';
-      }
-      return cmd === 'git branch --show-current' ? 'main\n' : '';
-    });
+    mockGit({ 'git branch --show-current': 'main\n' });
     setupPromptMocks();
     vi.mocked(text).mockResolvedValueOnce('#42');
 

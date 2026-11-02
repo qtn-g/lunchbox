@@ -6,6 +6,17 @@ Releases are driven by [Changesets](https://github.com/changesets/changesets) an
 - Pushing a `v*` tag runs [.github/workflows/release.yml](.github/workflows/release.yml): lint → build → test → `pnpm changeset publish` to npm.
 - Pushes to `master` also redeploy the docs (`docs.yml`) and run `validate.yml`.
 
+## Publishing a new package
+
+Trusted publishing is configured per package on npmjs.com, so the package has to exist first and CI cannot publish its first version. Do this once, between steps 3 and 4 below, otherwise the Release workflow fails on that package:
+
+```sh
+pnpm --filter @lunchbox-tools/<name> run build
+pnpm --filter @lunchbox-tools/<name> publish --access public
+```
+
+Then add the trusted publisher in the package settings on npmjs.com. `changeset publish` skips versions that are already on npm.
+
 ## Release steps
 
 ### 1. Describe changes while developing
