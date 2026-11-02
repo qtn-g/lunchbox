@@ -102,7 +102,7 @@ In Claude Code, you can install them as a plugin instead, which also lets you up
 /plugin install lunchbox --marketplace qtn-g/lunchbox
 ```
 
-The repository also holds `coding-style`, the coding conventions lunchbox itself follows. It has nothing to do with the tools, so install it only if you want those conventions in your project. In Claude Code, it is the `lunchbox-coding-style` plugin.
+The repository also holds `coding-style`, the coding conventions lunchbox itself follows. It has nothing to do with the tools, so install it only if you want those conventions in your project. The Claude Code plugin always includes it and applies it to all code, so use the skills CLI to install the branch and commit skills alone.
 
 ## Use From a Script
 

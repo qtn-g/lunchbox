@@ -9,10 +9,9 @@
     {
       "name": "lunchbox",
       "source": "./plugins/lunchbox"
-    },
-    {
-      "name": "lunchbox-coding-style",
-      "source": "./plugins/lunchbox-coding-style"
     }
-  ]
+  ],
+  "renames": {
+    "lunchbox-coding-style": "lunchbox"
+  }
 }
