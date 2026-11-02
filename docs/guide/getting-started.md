@@ -90,13 +90,19 @@ See the [branch](/packages/branch/configuration) and [commit](/packages/commit/c
 
 ## Agent Skills
 
-The tools are interactive, so a coding agent cannot drive them. The [skills](https://github.com/qtn-g/lunchbox/tree/master/skills) teach it to create the same branches and commits with plain git, following your configuration:
+The tools are interactive, so a coding agent cannot drive them. The [skills](https://github.com/qtn-g/lunchbox/tree/master/plugins/lunchbox/skills) teach it to create the same branches and commits with plain git, following your configuration:
 
 ```bash
 npx skills add qtn-g/lunchbox
 ```
 
-The repository also holds `coding-style`, the coding conventions lunchbox itself follows. It has nothing to do with the tools, so install it only if you want those conventions in your project.
+In Claude Code, you can install them as a plugin instead, which also lets you update them with `claude plugin update`:
+
+```
+/plugin install lunchbox --marketplace qtn-g/lunchbox
+```
+
+The repository also holds `coding-style`, the coding conventions lunchbox itself follows. It has nothing to do with the tools, so install it only if you want those conventions in your project. In Claude Code, it is the `lunchbox-coding-style` plugin.
 
 ## Use From a Script
 

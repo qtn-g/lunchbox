@@ -15,7 +15,14 @@ A pnpm monorepo containing CLI utilities for branch creation and Conventional Co
 
 Set everything up at once with `npx @lunchbox-tools/setup`, or run the tools directly with `npx @lunchbox-tools/branch` and `npx @lunchbox-tools/commit`, or install them to get the `lunchbox-branch` and `lunchbox-commit` commands.
 
-Coding agents can follow the same conventions through the [skills](skills/): `npx skills add qtn-g/lunchbox`.
+Coding agents can follow the same conventions through the skills in [`plugins/`](plugins/): `npx skills add qtn-g/lunchbox`.
+
+In Claude Code, install them as plugins instead:
+
+```
+/plugin install lunchbox --marketplace qtn-g/lunchbox
+/plugin install lunchbox-coding-style --marketplace qtn-g/lunchbox
+```
 
 ## Development setup
 
