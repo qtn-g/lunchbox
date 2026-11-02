@@ -12,6 +12,8 @@ A pnpm monorepo containing CLI utilities for branch creation and Conventional Co
 | [`@lunchbox-tools/commit`](packages/commit/README.md) | Interactive Conventional Commit message generator |
 | [`@lunchbox-tools/utils`](packages/utils/README.md) | Shared internal utilities (private, not published) |
 
+Run them directly with `npx @lunchbox-tools/branch` and `npx @lunchbox-tools/commit`, or install them to get the `lunchbox-branch` and `lunchbox-commit` commands.
+
 ## Development setup
 
 ```sh

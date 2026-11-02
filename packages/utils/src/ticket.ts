@@ -97,6 +97,10 @@ const TICKET_RULES: Record<LinkedTicketProvider, TicketRule> = {
 
 export const isTicketEnabled = (provider: TicketProvider): provider is LinkedTicketProvider => provider !== 'none';
 
+export const isTicketProvider = (value: unknown): value is TicketProvider => {
+  return value === 'none' || (typeof value === 'string' && Object.keys(TICKET_RULES).includes(value));
+};
+
 /**
  * Normalizes a ticket to its canonical form (`proj-123` → `PROJ-123`, `#123` → `123`).
  * A bare number is first prepended with `ticketPrefix` (`123` → `PROJ-123` with `PROJ-`).

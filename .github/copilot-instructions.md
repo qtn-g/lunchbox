@@ -46,7 +46,7 @@ export default defineConfig({
 
 - Output is always ESM (`.mjs`). Do not add CJS output unless explicitly requested.
 - Type declarations emit as `.d.mts` alongside the bundle.
-- `src/index.ts` is the sole entry point per package; keep the public API surface explicit.
+- `src/index.ts` is the public entry point of a package; keep the public API surface explicit. Executables add `src/cli.ts` as a second entry, exposed through `bin`.
 
 ## Package Exports Convention
 

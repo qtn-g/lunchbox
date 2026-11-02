@@ -6,6 +6,6 @@ export default defineConfig({
   },
   // Eager emit is required to inline types imported from @lunchbox-tools/utils (e.g. TicketProvider).
   dts: { eager: true },
-  entry: ['src/index.ts'],
+  entry: ['src/index.ts', 'src/cli.ts'],
   minify: true,
 });

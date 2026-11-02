@@ -4,10 +4,21 @@ Interactive CLI for generating standardised git branch names.
 
 **For usage docs and configuration reference, see the [documentation site](https://qgirard.github.io/lunchbox/packages/branch).**
 
+## Usage
+
+```sh
+npx @lunchbox-tools/branch              # run without installing
+npm install -g @lunchbox-tools/branch   # or install the `lunchbox-branch` command
+```
+
+Options are read from the `"branch"` section of `lunchbox.config.json`, at the root of the git repository.
+
 ## Package structure
 
 ```
 src/
+  cli.ts         ← `lunchbox-branch` executable
+  config.ts      ← config file validators
   constants.ts   ← default branch types and config
   format.ts      ← kebab-case conversion and branch name helpers
   prompt.ts      ← @clack prompt sequence

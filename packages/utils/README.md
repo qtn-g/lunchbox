@@ -35,6 +35,14 @@ import { tryRunCommand } from '@lunchbox-tools/utils';
 const result = tryRunCommand('git fetch --all --prune');
 ```
 
+### `runCli(options, args?): Promise<void>`
+
+Entry point of the `lunchbox-*` executables: handles `--help` and `--version`, loads the config file and starts the tool. Usage and configuration errors set a non-zero exit code without starting the tool.
+
+### `loadConfig(source): ConfigResult<Partial<T>>`
+
+Loads and validates one section of `lunchbox.config.json`, at the root of the current git repository. A missing file or section yields an empty config. `parseConfig` does the same from the file contents, and `isString`, `isBoolean`, `isPositiveInteger`, `isOptionList` and `ticketValidators` are the building blocks of a tool's `ConfigValidators`.
+
 ### Ticket helpers
 
 Shared ticket logic for the branch and commit prompts, driven by `TicketSettings` (`ticketProvider`, `ticketPrefix`):

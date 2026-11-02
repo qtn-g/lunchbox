@@ -9,9 +9,38 @@ Lunchbox is a collection of small CLI tools that help enforce consistent Git wor
 | [`@lunchbox-tools/commit`](/packages/commit/) | Interactive commit message generator |
 | [`@lunchbox-tools/branch`](/packages/branch/) | Interactive branch name generator |
 
-## Quick Install
+## Quick Start
 
-Install only the tools you need:
+Run a tool without installing anything, from anywhere inside a git repository:
+
+::: code-group
+
+```bash [npm]
+npx @lunchbox-tools/commit
+npx @lunchbox-tools/branch
+```
+
+```bash [yarn]
+yarn dlx @lunchbox-tools/commit
+yarn dlx @lunchbox-tools/branch
+```
+
+```bash [pnpm]
+pnpm dlx @lunchbox-tools/commit
+pnpm dlx @lunchbox-tools/branch
+```
+
+:::
+
+## Install
+
+Install globally to get the `lunchbox-commit` and `lunchbox-branch` commands everywhere:
+
+```bash
+npm install -g @lunchbox-tools/commit @lunchbox-tools/branch
+```
+
+Or add only the tools you need to a project, to pin their version for the whole team:
 
 ::: code-group
 
@@ -32,9 +61,26 @@ pnpm add -D @lunchbox-tools/branch
 
 :::
 
-## Usage Pattern
+## Configuration
 
-Each package exposes a setup function that accepts an optional configuration object and returns a prompt instance. Call `.run()` to start the interactive flow:
+Commit `lunchbox.config.json` at the root of your repository to share options with your team. Each tool reads its own section:
+
+```json
+{
+  "branch": { "ticketPrefix": "PROJ-", "ticketProvider": "jira" },
+  "commit": {
+    "commitScopes": [{ "label": "api — Public API surface", "value": "api" }],
+    "ticketPrefix": "PROJ-",
+    "ticketProvider": "jira"
+  }
+}
+```
+
+See the [branch](/packages/branch/configuration) and [commit](/packages/commit/configuration) options.
+
+## Use From a Script
+
+Each package also exposes a setup function that accepts an optional configuration object and returns a prompt instance. Call `.run()` to start the interactive flow:
 
 ```ts
 import { setupCommitPrompt } from '@lunchbox-tools/commit';

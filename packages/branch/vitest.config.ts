@@ -1,6 +1,12 @@
 import { configDefaults, defineConfig } from 'vitest/config';
 
-const excludePatterns: Array<string> = [...configDefaults.exclude, 'tsdown.config.ts', '**/*.config.ts', '**/index.ts'];
+const excludePatterns: Array<string> = [
+  ...configDefaults.exclude,
+  'tsdown.config.ts',
+  '**/*.config.ts',
+  '**/index.ts',
+  'src/cli.ts',
+];
 
 export default defineConfig({
   test: {

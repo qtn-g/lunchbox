@@ -2,7 +2,36 @@
 
 Interactive CLI prompt that generates **conventional commit messages** with type, scope, subject, body, and breaking change support.
 
-## Installation
+## Usage
+
+Run it without installing anything, from anywhere inside a git repository:
+
+::: code-group
+
+```bash [npm]
+npx @lunchbox-tools/commit
+```
+
+```bash [yarn]
+yarn dlx @lunchbox-tools/commit
+```
+
+```bash [pnpm]
+pnpm dlx @lunchbox-tools/commit
+```
+
+:::
+
+### Installation
+
+Install it globally to get the `lunchbox-commit` command everywhere:
+
+```bash
+npm install -g @lunchbox-tools/commit
+lunchbox-commit
+```
+
+Or add it to a project, to pin the version for the whole team:
 
 ::: code-group
 
@@ -20,23 +49,12 @@ pnpm add -D @lunchbox-tools/commit
 
 :::
 
-## Usage
-
-Create a script (e.g. `scripts/commit.mjs`) and call the setup function:
-
-```js
-#!/usr/bin/env node
-import { setupCommitPrompt } from '@lunchbox-tools/commit';
-
-setupCommitPrompt().run();
-```
-
 Then add an npm script in your `package.json`:
 
 ```json
 {
   "scripts": {
-    "commit": "node ./scripts/commit.mjs"
+    "commit": "lunchbox-commit"
   }
 }
 ```
@@ -46,6 +64,21 @@ Run it with:
 ```bash
 pnpm commit
 ```
+
+Options are read from [`lunchbox.config.json`](./configuration#config-file). The default scopes are generic, so you will most likely want to set your own `commitScopes` there.
+
+### Use it from a script
+
+You can also call it from your own script, for instance to compute the configuration:
+
+```js
+#!/usr/bin/env node
+import { setupCommitPrompt } from '@lunchbox-tools/commit';
+
+setupCommitPrompt().run();
+```
+
+## Prompts
 
 The prompt will guide you through:
 
@@ -116,23 +149,30 @@ npx husky init
 
 This creates a `.husky/` directory in your project root.
 
-### 3. Create a commit script
+### 3. Install the commit tool
 
-Create a script file (e.g. `scripts/commit.mjs`):
+::: code-group
 
-```js
-#!/usr/bin/env node
-import { setupCommitPrompt } from '@lunchbox-tools/commit';
-
-setupCommitPrompt().run();
+```bash [pnpm]
+pnpm add -D @lunchbox-tools/commit
 ```
+
+```bash [npm]
+npm install -D @lunchbox-tools/commit
+```
+
+```bash [yarn]
+yarn add -D @lunchbox-tools/commit
+```
+
+:::
 
 ### 4. Add an npm script
 
 ```json
 {
   "scripts": {
-    "commit": "node ./scripts/commit.mjs"
+    "commit": "lunchbox-commit"
   }
 }
 ```
