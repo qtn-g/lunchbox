@@ -91,9 +91,9 @@ Never change this pattern — it allows consumers and the dev server to resolve 
 
 Create changesets as you work with `pnpm changeset`. To release, follow `.claude/skills/release/SKILL.md`.
 
-The Claude Code plugins under `plugins/` are versioned separately from the npm packages. When you change a plugin's files, raise `version` in its `.claude-plugin/plugin.json`: users stay on their installed copy until that string changes. Never rename a published plugin.
+The Claude Code plugin under `plugins/` is versioned separately from the npm packages. When you change its files, raise `version` in its `.claude-plugin/plugin.json`: users stay on their installed copy until that string changes. Never rename a published plugin.
 
 ## Code Style
 
-- Before writing, refactoring, or reviewing code, read `plugins/lunchbox-coding-style/skills/coding-style/SKILL.md`.
+- Before writing, refactoring, or reviewing code, read `plugins/lunchbox/skills/coding-style/SKILL.md`.
 - Run `pnpm lint` before committing to check Biome compliance.
