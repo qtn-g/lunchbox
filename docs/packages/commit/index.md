@@ -80,6 +80,8 @@ setupCommitPrompt().run();
 
 ## Prompts
 
+Stage your changes with `git add` first: the command stops right away when nothing is staged.
+
 The prompt will guide you through:
 
 1. **Type** — Select the kind of change (feat, fix, docs, refactor, etc.)

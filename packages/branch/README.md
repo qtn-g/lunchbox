@@ -2,7 +2,7 @@
 
 Interactive CLI for generating standardised git branch names.
 
-**For usage docs and configuration reference, see the [documentation site](https://qgirard.github.io/lunchbox/packages/branch).**
+**For usage docs and configuration reference, see the [documentation site](https://qtn-g.github.io/lunchbox/packages/branch).**
 
 ## Usage
 

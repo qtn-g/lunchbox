@@ -1,18 +1,52 @@
-import { describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'vitest';
 
 const { mockCancel } = vi.hoisted(() => ({ mockCancel: vi.fn() }));
 const { mockExecSync } = vi.hoisted(() => ({ mockExecSync: vi.fn() }));
+const { mockBox, mockLogMessage } = vi.hoisted(() => ({ mockBox: vi.fn(), mockLogMessage: vi.fn() }));
 
 vi.mock('@clack/prompts', () => ({
+  box: mockBox,
   cancel: mockCancel,
   isCancel: (value: unknown) => value === Symbol.for('cancel'),
+  log: { message: mockLogMessage },
 }));
 
 vi.mock('node:child_process', () => ({
   execSync: mockExecSync,
 }));
 
-import { runCommand, tryRunCommand, unwrap } from '../utils';
+import { runCommand, showPreview, tryRunCommand, unwrap } from '../utils';
+
+describe('showPreview', () => {
+  beforeEach(() => {
+    vi.resetAllMocks();
+  });
+
+  it('displays the content in a box', () => {
+    showPreview('content', 'Title');
+
+    expect(mockBox).toHaveBeenCalledWith('content', 'Title');
+    expect(mockLogMessage).not.toHaveBeenCalled();
+  });
+
+  it('prints the content without the box when the terminal is too narrow', () => {
+    mockBox.mockImplementation(() => {
+      throw new RangeError('Invalid count value: -8');
+    });
+
+    showPreview('content', 'Title');
+
+    expect(mockLogMessage).toHaveBeenCalledWith('Title\ncontent');
+  });
+
+  it('rethrows any other error', () => {
+    mockBox.mockImplementation(() => {
+      throw new Error('unexpected');
+    });
+
+    expect(() => showPreview('content', 'Title')).toThrow('unexpected');
+  });
+});
 
 describe('unwrap', () => {
   it('exits process when value is a cancel symbol', () => {

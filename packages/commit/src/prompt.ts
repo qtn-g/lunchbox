@@ -1,13 +1,14 @@
 /** biome-ignore-all lint/suspicious/noConsole: <Used to display info to the user> */
 
 import fs from 'node:fs';
-import { box, confirm, intro, log, multiselect, outro, select } from '@clack/prompts';
+import { cancel, confirm, intro, log, multiselect, outro, select } from '@clack/prompts';
 import {
   askTicket,
   extractTicketFromBranch,
   formatTicketReference,
   isTicketEnabled,
   runCommand,
+  showPreview,
   unwrap,
 } from '@lunchbox-tools/utils';
 import { defaultConfig } from './constants';
@@ -24,6 +25,12 @@ class CommitPrompt {
 
   async run(): Promise<void> {
     intro('Commit message generator');
+
+    if (!this.hasStagedChanges()) {
+      cancel('Nothing to commit, stage your changes with "git add" first.');
+      process.exitCode = 1;
+      return;
+    }
 
     const type = await this.askCommitType();
     const scopes = await this.askCommitScopes();
@@ -46,8 +53,14 @@ class CommitPrompt {
     }
   }
 
+  private hasStagedChanges(): boolean {
+    // Outside of a repository, this fails with a short error whereas `git diff` prints its whole usage.
+    runCommand('git rev-parse --git-dir', { stdio: ['pipe', 'pipe', 'pipe'] });
+    return runCommand('git diff --cached --name-only', { stdio: ['pipe', 'pipe', 'pipe'] }).trim() !== '';
+  }
+
   private previewCommitMessage(commitMessage: string): void {
-    box(commitMessage, 'Commit Message Preview');
+    showPreview(commitMessage, 'Commit Message Preview');
   }
 
   private commit(commitMessage: string): void {

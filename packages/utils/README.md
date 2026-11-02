@@ -15,6 +15,10 @@ const answer = await text({ message: 'Enter name:' });
 const name = unwrap(answer); // exits if cancelled, otherwise returns string
 ```
 
+### `showPreview(content: string, title: string): void`
+
+Displays a preview in a box, or as plain text when the terminal is too narrow to draw one.
+
 ### `runCommand(command: string, opts?): string`
 
 Executes a shell command synchronously and returns its stdout as a string. On failure, logs the error and exits the process.
