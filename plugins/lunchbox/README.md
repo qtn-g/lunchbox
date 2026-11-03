@@ -27,7 +27,7 @@ Unlike the other two skills, `coding-style` applies to all code, in any language
 - Guard clauses, exhaustive mappers and array methods instead of `switch`, nested ternaries and loops
 - Small functions with at most two parameters, no boolean flags, and `Result` values for expected failures
 - Strict TypeScript: no `any`, no `as` casts, and every type declared in a `types/` directory
-- Verification from the narrowest tests outwards
+- Verification from the narrowest tests outwards, then the Sonar findings SonarQube for IDE reports on the changed lines
 
 A project's compiler, linter and formatter configuration wins where it conflicts with the style. The examples are in TypeScript, and the skill explains how to apply them in other languages.
 

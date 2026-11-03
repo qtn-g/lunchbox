@@ -80,8 +80,17 @@ Always use named `const` values for literal strings that carry domain meaning. A
 
 - Preserve the existing public contract unless a breaking change is intentional.
 - Add or update tests around behavior and failure paths.
-- Verify in order, narrowest first: the tests closest to the change, then the wider test suite, then workspace-wide type checking and linting, then the Sonar analysis when the project has one. Fix any new Sonar issue on the changed code, and don't silence one without a stated reason. Run formatting before finishing.
+- Verify in order, narrowest first: the tests closest to the change, then the wider test suite, then workspace-wide type checking and linting, then Sonar (below) when the project has one. Run formatting before finishing.
 - Keep comments focused on why a non-obvious decision exists, not on repeating what the code says.
+
+## Sonar
+
+SonarQube for IDE reports a project's Sonar findings as editor diagnostics whose `source` is `sonarqube` (codes such as `typescript:S3776`, `secrets:S6698`).
+
+1. After the last edit, read the diagnostics of each file you changed (`getDiagnostics` with the file's `uri`): the ones an edit returns describe the file at that moment only. Done when every changed file has been read and every `sonarqube` diagnostic on a line you wrote or changed is fixed.
+2. Fix the cause, as the rule describes it. Silence a finding (`// NOSONAR`) only for a false positive, with the reason in the same comment, and name it to the user.
+3. Leave findings on lines you did not touch as they are, and list them in your final message.
+4. A file missing from the diagnostics was not analysed, and outside an editor running SonarQube for IDE there are no diagnostics at all: then say the Sonar check did not run, instead of reporting it clean.
 
 ## Applying these rules in other languages
 
